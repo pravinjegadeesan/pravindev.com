@@ -1,31 +1,47 @@
-# RepoLens portfolio starter
+# RepoLens
 
-A minimal, responsive landing page for RepoLens, a proposed open-source developer tool concept.
+RepoLens is an early-stage project exploring ways to help developers understand unfamiliar codebases. This repository currently contains its responsive project landing page; the repository-scanning and documentation features described on the site are planned, not implemented.
 
-## Important before publishing
-This site intentionally distinguishes proposed capabilities from shipped functionality. Do not claim that the product is live, that it has users, or that it uses Claude until those claims are true.
+## Project status
 
-## Customize first
-1. Replace `REPLACE_WITH_YOUR_EMAIL` in `index.html` with your public contact email.
-2. Add your real GitHub repository link after you create it. Do not link to a repository that does not exist.
-3. Update the roadmap as work is completed, and link to evidence (commits, tests, releases, demo).
-4. If you choose a different project name, update the title, metadata, and page copy.
-5. Add a privacy notice before collecting user data or accepting repository uploads.
+The landing page introduces the problem RepoLens hopes to address and outlines a possible path toward an MVP:
 
-## Preview locally
-Open `index.html` in a browser. No build tools or dependencies are required.
+1. Build a safe repository scanner and test it against sample projects.
+2. Explore contextual explanations with references to source files.
+3. Evaluate the output and support editable documentation exports.
 
-## Deploy
-- GitHub Pages: push `index.html` to a repository and enable Pages in repository settings.
-- Netlify or Vercel: import the repository and deploy it as a static site.
+The terminal-style preview on the page is illustrative only. It does not analyze a repository or represent a working RepoLens tool.
 
-## Suggested MVP implementation
-- Start with a local scanner for public/sample repositories.
-- Ignore secrets, environment files, binaries, dependency folders, and large files.
-- Add deterministic repository structure output and tests before adding an LLM.
-- Add Claude API calls only after defining input limits, error handling, privacy boundaries, and cost controls.
-- Use an environment variable for the API key on the server; never expose a secret API key in browser JavaScript.
-- Evaluate generated explanations for factual accuracy and source-path grounding.
+## Landing page
 
-## Program applications
-A portfolio can explain your project, but it does not guarantee acceptance into a startup program or free credits. Apply using accurate information and follow the program's current eligibility terms.
+The page is a standalone `index.html` file built with HTML, CSS, and a small inline script. It has no build step, package dependencies, or backend. Its current features include:
+
+- Responsive layout for desktop and mobile.
+- Navigation links to sections of the page.
+- A copyright year that updates automatically.
+
+### Preview locally
+
+Open `index.html` directly in a browser, or serve the project directory with any static file server. For example, if Python is installed:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit [http://localhost:8000](http://localhost:8000).
+
+## Deployment
+
+This repository is set up for GitHub Pages. To publish it:
+
+1. In the repository's GitHub settings, enable Pages and select the `main` branch and `/(root)` as the source.
+2. The tracked `CNAME` file configures the custom domain `pravindev.com`. Configure the matching DNS records with your domain provider if they are not already set up.
+3. Enable HTTPS in the Pages settings once the domain configuration is verified.
+
+Any new commit pushed to `main` will be published by GitHub Pages.
+
+## Contributing
+
+The project is at the concept stage. Before treating a proposed capability as complete, implement it, add relevant tests, and update the roadmap and documentation to reflect verifiable progress.
+
+If repository analysis is added, begin with local or sample repositories, exclude secrets and sensitive files, and document what data is processed. Do not send private source code to an external service without clear authorization. Any future API credentials must remain server-side and must not be included in browser code.
