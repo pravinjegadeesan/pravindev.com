@@ -1,39 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pravin | Student at NCI, Ireland</title>
-  <meta name="description" content="Pravin's personal portfolio as a student at NCI, Ireland.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="description" content="RepoLens is an early-stage open-source project exploring clearer codebase onboarding and repository documentation.">
+  <title>RepoLens — Understand a codebase faster</title>
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #0b1020;
-      color: #f5f7ff;
-      font-family: system-ui, sans-serif;
+    :root {
+      --paper: #f7f7f4; --ink: #171815; --muted: #696b63; --line: #dedfd8;
+      --panel: #fff; --soft: #eeefe9; --accent: #c9f36b; --dark: #1d201a;
+      --max: 1120px; --radius: 18px;
     }
-    main {
-      max-width: 650px;
-      padding: 32px;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; letter-spacing: -.04em; font-size: 19px; }
+    .mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink); color: var(--accent); border-radius: 8px; font-family: ui-monospace, monospace; font-size: 15px; }
+    .navlinks { display: flex; gap: 26px; align-items: center; font-size: 13px; color: var(--muted); }
+    .navlinks a:hover, .textlink:hover { color: var(--ink); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 17px; background: var(--ink); color: white; border: 1px solid var(--ink); border-radius: 8px; font-weight: 650; font-size: 13px; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+    .button:hover { transform: translateY(-1px); background: #34372e; }
+    .button.secondary { background: transparent; color: var(--ink); }
+    .button.secondary:hover { background: var(--soft); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--muted); text-transform: uppercase; font-size: 10px; font-weight: 750; letter-spacing: .13em; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #8cb43b; }
+    .hero { padding: 94px 0 76px; display: grid; grid-template-columns: 1.03fr .97fr; gap: 58px; align-items: center; }
+    h1 { font-size: clamp(42px, 5.7vw, 72px); line-height: .99; letter-spacing: -.075em; margin: 20px 0 24px; font-weight: 680; max-width: 650px; }
+    .hero p { color: var(--muted); max-width: 510px; font-size: 17px; line-height: 1.7; margin: 0 0 28px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .micro { margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .terminal { background: var(--dark); color: #e9ecdf; border-radius: var(--radius); padding: 0; overflow: hidden; box-shadow: 0 25px 65px rgba(27,30,22,.11); border: 1px solid #30342b; }
+    .termbar { display: flex; align-items: center; gap: 7px; padding: 15px 17px; border-bottom: 1px solid #34382f; color: #9da294; font-size: 11px; font-family: ui-monospace, monospace; }
+    .orb { width: 7px; height: 7px; border-radius: 50%; background: #666b5e; }
+    .termname { margin-left: 8px; }
+    .termcontent { padding: 24px 23px 25px; font: 12px/1.9 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .dim { color: #8e9685; } .green { color: #c9f36b; } .blue { color: #9bc9e8; } .white { color: #f5f6ef; }
+    .filetree { border: 1px solid #3a3e34; border-radius: 10px; margin: 14px 0 18px; padding: 11px 13px; }
+    .file { display: flex; justify-content: space-between; gap: 12px; }
+    .file span:last-child { color: #8e9685; }
+    .termfoot { display: flex; justify-content: space-between; gap: 12px; padding: 12px 17px; border-top: 1px solid #34382f; color: #a7ad9d; font-size: 10px; }
+    .status { display: inline-flex; align-items: center; gap: 6px; }
+    .status:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #c9f36b; }
+    .section { padding: 82px 0; border-top: 1px solid var(--line); }
+    .sectionhead { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 34px; }
+    .sectionhead h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 45px); line-height: 1.05; letter-spacing: -.06em; font-weight: 650; }
+    .sectionhead p { max-width: 390px; color: var(--muted); font-size: 14px; margin: 0; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .card { border: 1px solid var(--line); background: rgba(255,255,255,.52); border-radius: 13px; padding: 24px; min-height: 210px; }
+    .icon { display: grid; place-items: center; width: 37px; height: 37px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; font: 15px ui-monospace, monospace; }
+    .card h3 { font-size: 16px; margin: 22px 0 8px; letter-spacing: -.025em; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0; }
+    .split { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+    .split h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.05; letter-spacing: -.06em; margin: 12px 0 18px; }
+    .split > div:first-child p { color: var(--muted); font-size: 14px; }
+    .steps { border-top: 1px solid var(--line); }
+    .step { display: grid; grid-template-columns: 42px 1fr; gap: 17px; padding: 21px 0; border-bottom: 1px solid var(--line); }
+    .num { font: 12px ui-monospace, monospace; color: var(--muted); padding-top: 3px; }
+    .step h3 { font-size: 14px; margin: 0 0 5px; }
+    .step p { color: var(--muted); font-size: 13px; margin: 0; }
+    .callout { background: var(--dark); color: #f3f4ed; padding: 32px; border-radius: var(--radius); display: grid; grid-template-columns: 1fr auto; gap: 25px; align-items: center; }
+    .callout h2 { margin: 0 0 8px; font-size: 27px; letter-spacing: -.05em; }
+    .callout p { margin: 0; color: #b7bcae; max-width: 610px; font-size: 13px; }
+    .callout .button { background: var(--accent); color: var(--ink); border-color: var(--accent); white-space: nowrap; }
+    .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .phase { border-top: 2px solid var(--ink); padding: 18px 2px 0; }
+    .phase small { color: var(--muted); font: 10px ui-monospace, monospace; text-transform: uppercase; letter-spacing: .08em; }
+    .phase h3 { font-size: 15px; margin: 11px 0 8px; }
+    .phase p { color: var(--muted); font-size: 13px; margin: 0; }
+    .footer { border-top: 1px solid var(--line); padding: 28px 0 36px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    .footer strong { color: var(--ink); }
+    .note { margin-top: 22px; border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 780px) {
+      .navlinks { gap: 13px; } .navlinks .optional { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 36px; padding: 68px 0 60px; }
+      .section { padding: 60px 0; } .sectionhead { align-items: start; flex-direction: column; gap: 15px; }
+      .grid3, .roadmap { grid-template-columns: 1fr; }
+      .card { min-height: auto; }
+      .split { grid-template-columns: 1fr; gap: 28px; }
+      .callout { grid-template-columns: 1fr; padding: 25px; }
+      .callout .button { justify-self: start; }
     }
-    h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 12px; }
-    p { color: #aab4ca; line-height: 1.8; }
-    a { color: #8ab4ff; }
+    @media (max-width: 440px) {
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      .nav { height: 66px; } .navlinks { gap: 10px; font-size: 12px; }
+      .navlinks .hide-small { display: none; }
+      h1 { font-size: 45px; }
+      .termcontent { padding: 19px 14px; font-size: 10px; }
+      .termfoot { font-size: 9px; }
+      .footer { flex-direction: column; }
+    }
+    :focus-visible { outline: 3px solid #8cb43b; outline-offset: 3px; }
   </style>
 </head>
 <body>
+  <header class="wrap nav">
+    <a class="brand" href="#" aria-label="RepoLens home"><span class="mark">R/</span><span>RepoLens</span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#approach">Approach</a>
+      <a href="#roadmap" class="optional">Roadmap</a>
+      <a href="#about" class="hide-small">About</a>
+      <a href="#contact" class="button">Follow the build <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
   <main>
-    <p>HELLO INTERNET 👋</p>
-    <h1>I'm Pravin.</h1>
-    <p>
-      Welcome to my corner of the internet.
-    </p>
-    <p>
-      <a href="https://github.com/pravinjegadeesan">Github</a>
-    </p>
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Open-source project · Early stage</div>
+        <h1>Understand a codebase before you change it.</h1>
+        <p>RepoLens is an early-stage developer tool exploring a simpler way to map unfamiliar repositories, explain important files, and create useful onboarding notes.</p>
+        <div class="actions">
+          <a class="button" href="#roadmap">Explore the project <span aria-hidden="true">↓</span></a>
+          <a class="button secondary" href="#approach">How it could work</a>
+        </div>
+        <div class="micro">Built in the open. Focused on practical developer workflows.</div>
+      </div>
+      <div class="terminal" aria-label="Illustrative concept preview, not a live product">
+        <div class="termbar"><span class="orb"></span><span class="orb"></span><span class="orb"></span><span class="termname">repolens / repository-map</span></div>
+        <div class="termcontent">
+          <div class="dim">$ repolens inspect ./sample-project</div>
+          <div class="green">› Concept preview — illustrative output</div>
+          <div class="filetree">
+            <div class="file"><span class="blue">src/</span><span>application code</span></div>
+            <div class="file"><span class="white">├── api/</span><span>entry points</span></div>
+            <div class="file"><span class="white">├── services/</span><span>business logic</span></div>
+            <div class="file"><span class="white">└── utils/</span><span>shared helpers</span></div>
+            <div class="file"><span class="blue">tests/</span><span>verification</span></div>
+            <div class="file"><span class="blue">README.md</span><span>project guide</span></div>
+          </div>
+          <div><span class="dim">Possible next step:</span></div>
+          <div class="white">Generate an architecture overview</div>
+          <div class="dim">No repository has been analyzed in this demo.</div>
+        </div>
+        <div class="termfoot"><span>Illustrative interface</span><span class="status">Prototype concept</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="approach">
+      <div class="wrap">
+        <div class="sectionhead">
+          <div><div class="eyebrow">The problem</div><h2>Less time decoding.<br>More time building.</h2></div>
+          <p>Joining a codebase often means following imports, searching for entry points, and piecing together documentation that may be incomplete. RepoLens aims to make that first pass more structured.</p>
+        </div>
+        <div class="grid3">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Map the structure</h3>
+            <p>Explore a planned repository summary that highlights folders, entry points, configuration, and likely areas of responsibility.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Explain key files</h3>
+            <p>Use contextual explanations to help developers understand selected files and how they relate to the wider project.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Draft onboarding notes</h3>
+            <p>Turn repository findings into a reviewable first draft of setup instructions, architecture notes, and questions for maintainers.</p>
+          </article>
+        </div>
+        <div class="note"><strong>Current status:</strong> These are proposed capabilities, not claims about a shipped product. The roadmap below separates planned work from completed work.</div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap split">
+        <div>
+          <div class="eyebrow">Design principles</div>
+          <h2>Useful explanations. Clear boundaries.</h2>
+          <p>The goal is not to replace developers' judgment. It is to help them orient themselves, inspect evidence, and decide what to read next.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">01 /</div><div><h3>Evidence before confidence</h3><p>Link explanations to relevant files and make uncertainty visible instead of presenting guesses as facts.</p></div></div>
+          <div class="step"><div class="num">02 /</div><div><h3>Human review by default</h3><p>Generated documentation should be editable and reviewable before it is shared or committed.</p></div></div>
+          <div class="step"><div class="num">03 /</div><div><h3>Privacy-conscious processing</h3><p>Define repository access, retention, and secret-handling rules before processing private code. Never upload private source code without informed authorization.</p></div></div>
+          <div class="step"><div class="num">04 /</div><div><h3>Small, testable scope</h3><p>Start with public repositories and a limited set of outputs; measure usefulness before expanding the feature set.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="wrap">
+        <div class="sectionhead">
+          <div><div class="eyebrow">Build in public</div><h2>A focused path to an MVP.</h2></div>
+          <p>Milestones will be marked complete only after the work exists in the repository and can be verified.</p>
+        </div>
+        <div class="roadmap">
+          <article class="phase"><small>Phase 01 · Next</small><h3>Repository basics</h3><p>Build a safe file-tree scanner, define supported languages, and add tests using sample repositories.</p></article>
+          <article class="phase"><small>Phase 02 · Planned</small><h3>Contextual summaries</h3><p>Prototype Claude-powered explanations for selected files, with bounded context and citations to source paths.</p></article>
+          <article class="phase"><small>Phase 03 · Planned</small><h3>Export and evaluation</h3><p>Export editable Markdown, test output quality against a small benchmark, and document limitations and cost.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="callout">
+          <div><h2>Follow the project as it takes shape.</h2><p>RepoLens is at the concept stage. The next step is a public repository with a small, testable MVP, clear documentation, and transparent development notes.</p></div>
+          <a class="button" href="mailto:REPLACE_WITH_YOUR_EMAIL">Contact the developer <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="wrap footer">
+    <div><strong>RepoLens</strong> · An independent open-source project concept</div>
+    <div>Early-stage project · No customer or performance claims</div>
+    <div>© <span id="year"></span> RepoLens</div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
