@@ -50,6 +50,8 @@
     .sectionhead { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 34px; }
     .sectionhead h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 45px); line-height: 1.05; letter-spacing: -.06em; font-weight: 650; }
     .sectionhead p { max-width: 390px; color: var(--muted); font-size: 14px; margin: 0; }
+    .subhead { margin: 0 0 16px; font-size: 13px; }
+    .planned-head { margin-top: 34px; }
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
     .card { border: 1px solid var(--line); background: rgba(255,255,255,.52); border-radius: 13px; padding: 24px; min-height: 210px; }
     .icon { display: grid; place-items: center; width: 37px; height: 37px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; font: 15px ui-monospace, monospace; }
@@ -72,6 +74,8 @@
     .phase small { color: var(--muted); font: 10px ui-monospace, monospace; text-transform: uppercase; letter-spacing: .08em; }
     .phase h3 { font-size: 15px; margin: 11px 0 8px; }
     .phase p { color: var(--muted); font-size: 13px; margin: 0; }
+    .repo-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 13px; font-weight: 650; }
+    .repo-link:hover { text-decoration: underline; text-underline-offset: 4px; }
     .footer { border-top: 1px solid var(--line); padding: 28px 0 36px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
     .footer strong { color: var(--ink); }
     .note { margin-top: 22px; border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; color: var(--muted); font-size: 11px; }
@@ -101,10 +105,11 @@
   <header class="wrap nav">
     <a class="brand" href="#" aria-label="RepoLens home"><span class="mark">R/</span><span>RepoLens</span></a>
     <nav class="navlinks" aria-label="Main navigation">
-      <a href="#approach">Approach</a>
+      <a href="#features">Features</a>
       <a href="#roadmap" class="optional">Roadmap</a>
+      <a href="#technology" class="optional">Technology</a>
       <a href="#about" class="hide-small">About</a>
-      <a href="#contact" class="button">Follow the build <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/pravinjegadeesan/pravindev.com" class="button" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
@@ -113,10 +118,10 @@
       <div>
         <div class="eyebrow"><span class="dot"></span> Open-source project · Early stage</div>
         <h1>Understand a codebase before you change it.</h1>
-        <p>RepoLens is an early-stage developer tool exploring a simpler way to map unfamiliar repositories, explain important files, and create useful onboarding notes.</p>
+        <p>RepoLens is an early-stage concept for developers joining unfamiliar projects and maintainers helping others get started. It aims to map repositories, explain important files, and draft useful onboarding notes.</p>
         <div class="actions">
-          <a class="button" href="#roadmap">Explore the project <span aria-hidden="true">↓</span></a>
-          <a class="button secondary" href="#approach">How it could work</a>
+          <a class="button" href="#features">Explore the project <span aria-hidden="true">↓</span></a>
+          <a class="button secondary" href="#roadmap">View the roadmap</a>
         </div>
         <div class="micro">Built in the open. Focused on practical developer workflows.</div>
       </div>
@@ -141,39 +146,60 @@
       </div>
     </section>
 
-    <section class="section" id="approach">
+    <section class="section" id="features">
       <div class="wrap">
         <div class="sectionhead">
-          <div><div class="eyebrow">The problem</div><h2>Less time decoding.<br>More time building.</h2></div>
-          <p>Joining a codebase often means following imports, searching for entry points, and piecing together documentation that may be incomplete. RepoLens aims to make that first pass more structured.</p>
+          <div><div class="eyebrow">Product and features</div><h2>Less time decoding.<br>More time building.</h2></div>
+          <p>RepoLens is intended to help developers orient themselves in an unfamiliar codebase and help maintainers create clearer onboarding material. The product itself is not implemented yet.</p>
         </div>
+        <h3 class="subhead">Available today: this project website</h3>
         <div class="grid3">
           <article class="card">
             <div class="icon">01</div>
-            <h3>Map the structure</h3>
-            <p>Explore a planned repository summary that highlights folders, entry points, configuration, and likely areas of responsibility.</p>
+            <h3>Responsive landing page</h3>
+            <p>A static project site with layouts for desktop and mobile screens.</p>
           </article>
           <article class="card">
             <div class="icon">02</div>
-            <h3>Explain key files</h3>
-            <p>Use contextual explanations to help developers understand selected files and how they relate to the wider project.</p>
+            <h3>Project information</h3>
+            <p>Sections describing the concept, current status, technology, and development roadmap.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Email and source links</h3>
+            <p>Contact the developer at contact@pravindev.com and visit the public website repository.</p>
+          </article>
+        </div>
+        <h3 class="subhead planned-head">Planned: the RepoLens developer tool</h3>
+        <div class="grid3">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Map repository structure</h3>
+            <p>Scan a local project and summarize its folders, likely entry points, and configuration files.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Explain selected files</h3>
+            <p>Help developers understand key files with explanations grounded in source paths and context.</p>
           </article>
           <article class="card">
             <div class="icon">03</div>
             <h3>Draft onboarding notes</h3>
-            <p>Turn repository findings into a reviewable first draft of setup instructions, architecture notes, and questions for maintainers.</p>
+            <p>Create editable setup instructions and architecture notes for maintainers to review.</p>
           </article>
         </div>
-        <div class="note"><strong>Current status:</strong> These are proposed capabilities, not claims about a shipped product. The roadmap below separates planned work from completed work.</div>
+        <div class="note"><strong>Current status:</strong> Only the static website exists today. The scanner, file explanations, and onboarding-note generation are planned capabilities; the preview above is illustrative, not a working demo.</div>
       </div>
     </section>
 
     <section class="section" id="about">
       <div class="wrap split">
         <div>
-          <div class="eyebrow">Design principles</div>
-          <h2>Useful explanations. Clear boundaries.</h2>
-          <p>The goal is not to replace developers' judgment. It is to help them orient themselves, inspect evidence, and decide what to read next.</p>
+          <div class="eyebrow">About the developer</div>
+          <h2>An independent project, built in the open.</h2>
+          <p>I’m the independent developer behind RepoLens, exploring how to make unfamiliar codebases easier to understand. I’m building the project step by step, starting with a small, testable scope and sharing progress as it takes shape.</p>
+          <h3 class="subhead">Design principles</h3>
+          <p>The goal is to support developers' judgment, not replace it: show evidence, make uncertainty visible, and keep people in control.</p>
         </div>
         <div class="steps">
           <div class="step"><div class="num">01 /</div><div><h3>Evidence before confidence</h3><p>Link explanations to relevant files and make uncertainty visible instead of presenting guesses as facts.</p></div></div>
@@ -184,6 +210,43 @@
       </div>
     </section>
 
+    <section class="section" id="technology">
+      <div class="wrap">
+        <div class="sectionhead">
+          <div><div class="eyebrow">Technology</div><h2>Simple, dependency-free web stack.</h2></div>
+          <p>This describes the technology actually used by the current website, not the planned RepoLens analysis tool.</p>
+        </div>
+        <div class="grid3">
+          <article class="card">
+            <div class="icon">HTML</div>
+            <h3>HTML</h3>
+            <p>Semantic page structure and content in a standalone <code>index.html</code> file.</p>
+          </article>
+          <article class="card">
+            <div class="icon">CSS</div>
+            <h3>CSS</h3>
+            <p>Inline styles for responsive layouts, visual design, and focus states.</p>
+          </article>
+          <article class="card">
+            <div class="icon">JS</div>
+            <h3>Vanilla JavaScript</h3>
+            <p>A small inline script updates the displayed copyright year. No framework, build step, or backend is used.</p>
+          </article>
+        </div>
+        <div class="note"><strong>Hosting:</strong> The static site is published with GitHub Pages and uses the custom domain pravindev.com.</div>
+      </div>
+    </section>
+
+    <section class="section" id="github">
+      <div class="wrap">
+        <div class="sectionhead">
+          <div><div class="eyebrow">GitHub</div><h2>Follow the work in public.</h2></div>
+          <p>The public repository currently contains the RepoLens landing page and project documentation; it does not yet contain the planned scanner or analysis tool.</p>
+        </div>
+        <a class="repo-link" href="https://github.com/pravinjegadeesan/pravindev.com" target="_blank" rel="noopener noreferrer">pravinjegadeesan/pravindev.com <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
     <section class="section" id="roadmap">
       <div class="wrap">
         <div class="sectionhead">
@@ -191,9 +254,9 @@
           <p>Milestones will be marked complete only after the work exists in the repository and can be verified.</p>
         </div>
         <div class="roadmap">
-          <article class="phase"><small>Phase 01 · Next</small><h3>Repository basics</h3><p>Build a safe file-tree scanner, define supported languages, and add tests using sample repositories.</p></article>
-          <article class="phase"><small>Phase 02 · Planned</small><h3>Contextual summaries</h3><p>Prototype Claude-powered explanations for selected files, with bounded context and citations to source paths.</p></article>
-          <article class="phase"><small>Phase 03 · Planned</small><h3>Export and evaluation</h3><p>Export editable Markdown, test output quality against a small benchmark, and document limitations and cost.</p></article>
+          <article class="phase"><small>Milestone 01 · Planned</small><h3>Safe local repository scanner</h3><p>Define supported file types; skip secrets, binaries, dependency folders, and oversized files; produce a deterministic file-tree summary; cover behavior with sample-project tests.</p></article>
+          <article class="phase"><small>Milestone 02 · Planned</small><h3>Evidence-grounded file explanations</h3><p>Prototype summaries for selected files with source-path references, bounded context, clear errors, and documented privacy limits.</p></article>
+          <article class="phase"><small>Milestone 03 · Planned</small><h3>Editable exports and evaluation</h3><p>Export reviewable Markdown, compare results against a small test set, and publish known limitations before broadening the scope.</p></article>
         </div>
       </div>
     </section>
@@ -201,7 +264,7 @@
     <section class="section" id="contact">
       <div class="wrap">
         <div class="callout">
-          <div><h2>Follow the project as it takes shape.</h2><p>RepoLens is at the concept stage. The next step is a public repository with a small, testable MVP, clear documentation, and transparent development notes.</p></div>
+          <div><h2>Follow the project as it takes shape.</h2><p>RepoLens is at the concept stage. Get in touch with the independent developer or follow progress in the public repository.</p></div>
           <a class="button" href="mailto:contact@pravindev.com" aria-label="Email contact@pravindev.com">contact@pravindev.com <span aria-hidden="true">↗</span></a>
         </div>
       </div>
